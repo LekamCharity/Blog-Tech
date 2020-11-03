@@ -6,7 +6,7 @@ from app.models import *
 
 app = create_app('development')
 manager = Manager(app)
-manager.add_command('server',Server)
+manager.add_command('server',Server(use_debugger=True))
 
 
 @manager.command
