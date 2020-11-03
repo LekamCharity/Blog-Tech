@@ -14,14 +14,9 @@ def login():
         if user is not None and user.verify_password(login_form.password.data):
             login_user(user,login_form.remember.data)
 
-            # redirect to the appropriate dashboard page
-            if user.is_admin:
-                return redirect(url_for('main.admin_dashboard'))
-            else:
+    return redirect(request.args.get('next') or url_for('main.index'))
 
-                return redirect(request.args.get('next') or url_for('main.index'))
-
-        flash('Invalid author or Password')
+    flash('Invalid author or Password')
 
     title = "Blog-Tech"
     return render_template('auth/login.html',login_form = login_form,title=title)
@@ -41,10 +36,41 @@ def register():
 
         return redirect(url_for('auth.login'))
 
-    return render_template('auth/register.html',registration_form = form)
+    return render_template('auth/signup.html',registration_form = form)
 
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for("main.index"))
+
+
+
+# @auth.route('/login',methods=['GET','POST'])
+# def login():
+#     form = LoginForm()
+#     if form.validate_on_submit:
+#         user = User.query.filter_by(username =form.username.data).first()
+#         if user is not None and user.verify_password(form.password.data):
+#             login_user(user,form.remember.data)
+#             return redirect(request.args.get('next') or url_for('main.index'))
+#         flash('Invalid username and password')
+#     return render_template('auth/login.html',loginform=form)
+
+# @auth.route('/signup',methods = ['GET','POST'])
+# def signup():
+#     form = RegisterForm()
+#     if form.validate_on_submit():
+#         user = User(email=form.email.data,username = form.username.data,password=form.password.data)
+#         # user.save_user()
+#         db.session.add(user)
+#         db.session.commit()
+#         # mail_message("Welcome to Pitch-tech","email/welcome_user.html", user.email,user=user)
+#         return redirect(url_for('auth.login'))
+#     return render_template('auth/signup.html',reg_form=form)
+
+# @auth.route('/logout')
+# @login_required
+# def logout():
+#     logout_user()
+#     return redirect(url_for("main.index"))   
