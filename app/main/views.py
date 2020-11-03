@@ -70,7 +70,7 @@ def admin_dashboard():
 
     blogposts = Blogs.query.all()
 
-    return render_template('admin.html', title="Dashboard",blogposts=blogposts)
+    return render_template('admin_dashboard.html', title="Dashboard",blogposts=blogposts)
 
 @main.route('/blog/', methods = ['GET','POST'])
 @login_required
@@ -106,7 +106,7 @@ def single_blog(id):
 
     blogpost = Blogs.query.get(id)
 
-    return render_template('blog.html',blogpost=blogpost)
+    return render_template('oneblogpost.html',blogpost=blogpost)
 
 @main.route('/blogposts')
 def blogpost_list():
@@ -115,7 +115,7 @@ def blogpost_list():
     blogposts = Blogs.query.all()
 
 
-    return render_template('blogpost.html', blogposts=blogposts)
+    return render_template('blog.html', blogposts=blogposts)
 
 
 # viewing comments and respective posts
@@ -211,6 +211,9 @@ def subscriber():
         subscriber= Subscriber(email=subscriber_form.email.data,name = subscriber_form.name.data)
 
         db.session.add(subscriber)
+        db.session.commit()
+
+        mail_message("Welcome To Blog-Tech.","email/welcome_subscriber",subscriber.email,subscriber=subscriber)
 
         title= "Blog-Tech"
         return render_template('index.html',title=title, blogs=blogs)
