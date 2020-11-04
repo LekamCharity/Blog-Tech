@@ -37,13 +37,13 @@ class Blogs(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     title = db.Column(db.String(255))
     topic = db.Column(db.String(255))
-    content = db.Column(db.Text)
+    content = db.Column(db.String)
     date = db.Column(db.DateTime(250), default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     comments = db.relationship('Comments', backref='title', lazy='dynamic')
 
-    def save_blog(self,blogpost):
-        db.session.add(blogpost)
+    def save_blog(self):
+        db.session.add(self)
         db.session.commit()
 
     @classmethod

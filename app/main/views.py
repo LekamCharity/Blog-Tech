@@ -17,7 +17,7 @@ def index():
     blogs = Blogs.query.order_by(Blogs.date.desc()).all()
 
 
-    title= "Emdee's Blog"
+    title= "Blog-Tech"
     return render_template('index.html',title=title, blogs=blogs)
 
 @main.route('/user/<uname>')
@@ -65,12 +65,12 @@ def update_pic(uname):
 @login_required
 def admin_dashboard():
     # prevent non-admins from accessing the page
-    if not current_user.is_admin:
+    if not current_user:
         abort(403)
 
     blogposts = Blogs.query.all()
 
-    return render_template('admin.html', title="Dashboard",blogposts=blogposts)
+    return render_template('admin_dashboard.html', title="Dashboard",blogposts=blogposts)
 
 @main.route('/blog/', methods = ['GET','POST'])
 @login_required
@@ -85,17 +85,14 @@ def new_blog():
         title=form.title.data
 
         # Updated bloginstance
-        blogpost = Blogs(title=title,topic= topic,content= content,user_id=current_user.id)
+        blogpost = Blogs(title=title,topic= topic,content= content,author=current_user)
+        print(form.topic.data)
 
-        db.session.add(blogpost)
+        blogpost.save_blog()
 
         title='New Blog'
 
-        subscriber = Subscriber.query.all()
-        for email in subscriber:
-            mail_message("New Blog Post","email/postnotification",email.email,subscriber=subscriber)
-
-        return redirect(url_for('main.single_blog',id=blogpost.id))
+        return redirect(url_for('main.blogpost_list'))
 
     return render_template('blog.html',blogpost_form= form)
 
@@ -105,7 +102,7 @@ def single_blog(id):
 
     blogpost = Blogs.query.get(id)
 
-    return render_template('oneblogpost.html',blogpost=blogpost)
+    return render_template('blogposts.html',blogpost=blogpost)
 
 @main.route('/blogposts')
 def blogpost_list():
@@ -133,7 +130,7 @@ def blogpost(blogs_id):
 
     comments = Comments.get_comment(blogs_id)
 
-    return render_template('blogcommentlink.html',blogpost=blogpost,blogpost_form=form,comments=comments)
+    return render_template('blogcomment.html',blogpost=blogpost,blogpost_form=form,comments=comments)
 
 
 
@@ -143,7 +140,7 @@ def delete_blog(id):
     """
     Delete a blogpost from the database
     """
-    if not current_user.is_admin:
+    if not current_user:
         abort(403)
 
     blogpost = Blogs.query.filter_by(id=id).first()

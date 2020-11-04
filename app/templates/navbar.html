@@ -15,13 +15,27 @@
       <ul class="navbar-nav mr-auto">
           <a class="nav-link" href="/" style="padding-right: 2em; font-size: 20px;" >Home <span class="sr-only">(current)</span></a>
           <a class="nav-link" href="/blogposts" style="padding-right: 2em; font-size: 20px;">Blogs</a>
-          <a class="nav-item nav-link" style="padding-right: 2em; font-size: 20px;" href="{{ url_for('main.new_blog') }}">New Post</a>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link" href="{{ url_for('auth.login') }}">Login</a>
-          <a class="nav-item nav-link" href="{{ url_for('auth.register') }}">Register</a>
-        </div> 
+        {% if current_user.is_authenticated %}
+        {% if current_user.is_admin %}
+          <li>
+            <a class="nav-link" href="{{ url_for('main.admin_dashboard') }}">Dashboard</a>
+          </li>
+  
+        {% else %}
+          <li>
+            <a class="nav-link" href="{{ url_for('main.admin_dashboard') }}">Dashboard</a>
+          </li>
+        {% endif %}
+        <li >
+          <a class="nav-link" href="{{url_for('auth.login')}}">Login</a>
+        </li>
+        {% else %}
+        <li >
+          <a class="nav-link" href="{{url_for('auth.register')}}">Register</a>
+        </li>
+        {%endif%}
       </ul>
     </div>
   </nav>
