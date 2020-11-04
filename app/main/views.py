@@ -70,7 +70,7 @@ def admin_dashboard():
 
     blogposts = Blogs.query.all()
 
-    return render_template('admin_dashboard.html', title="Dashboard",blogposts=blogposts)
+    return render_template('admin.html', title="Dashboard",blogposts=blogposts)
 
 @main.route('/blog/', methods = ['GET','POST'])
 @login_required
@@ -94,7 +94,7 @@ def new_blog():
 
         subscriber = Subscriber.query.all()
         for email in subscriber:
-            mail_message("New Blog Post from Emdee's Blog ","email/postnotification",email.email,subscriber=subscriber)
+            mail_message("New Blog Post","email/postnotification",email.email,subscriber=subscriber)
 
         return redirect(url_for('main.single_blog',id=blogpost.id))
 
@@ -213,9 +213,9 @@ def subscriber():
         db.session.add(subscriber)
         db.session.commit()
 
-        mail_message("Hello, Welcome To Emdee's Blog.","email/welcome_subscriber",subscriber.email,subscriber=subscriber)
+        mail_message("Welcome to Blog-Tech","email/welcome_subscriber",subscriber.email,subscriber=subscriber)
 
-        title= "Emdee's Blog"
+        title= "Blog-Tech"
         return render_template('index.html',title=title, blogs=blogs)
 
     subscriber = Blogs.query.all()
