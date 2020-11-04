@@ -17,7 +17,7 @@ def index():
     blogs = Blogs.query.order_by(Blogs.date.desc()).all()
 
 
-    title= "Blog-Tech"
+    title= "Emdee's Blog"
     return render_template('index.html',title=title, blogs=blogs)
 
 @main.route('/user/<uname>')
@@ -94,7 +94,7 @@ def new_blog():
 
         subscriber = Subscriber.query.all()
         for email in subscriber:
-            mail_message("New post from Blog-Tech ","email/postnotification",email.email,subscriber=subscriber)
+            mail_message("New Blog Post from Emdee's Blog ","email/postnotification",email.email,subscriber=subscriber)
 
         return redirect(url_for('main.single_blog',id=blogpost.id))
 
@@ -115,7 +115,7 @@ def blogpost_list():
     blogposts = Blogs.query.all()
 
 
-    return render_template('blog.html', blogposts=blogposts)
+    return render_template('blogposts.html', blogposts=blogposts)
 
 
 # viewing comments and respective posts
@@ -134,7 +134,7 @@ def blogpost(blogs_id):
 
     comments = Comments.get_comment(blogs_id)
 
-    return render_template('commentblog.html',blogpost=blogpost,blogpost_form=form,comments=comments)
+    return render_template('blogcommentlink.html',blogpost=blogpost,blogpost_form=form,comments=comments)
 
 
 
@@ -213,9 +213,9 @@ def subscriber():
         db.session.add(subscriber)
         db.session.commit()
 
-        mail_message("Welcome To Blog-Tech.","email/welcome_subscriber",subscriber.email,subscriber=subscriber)
+        mail_message("Hello, Welcome To Emdee's Blog.","email/welcome_subscriber",subscriber.email,subscriber=subscriber)
 
-        title= "Blog-Tech"
+        title= "Emdee's Blog"
         return render_template('index.html',title=title, blogs=blogs)
 
     subscriber = Blogs.query.all()

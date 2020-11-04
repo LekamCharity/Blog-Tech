@@ -21,8 +21,8 @@ def login():
     title = "Blog-Tech"
     return render_template('auth/login.html',login_form = login_form,title=title)
 
-@auth.route('/signup',methods = ["GET","POST"])
-def signup():
+@auth.route('/register',methods = ["GET","POST"])
+def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(email = form.email.data,
@@ -35,7 +35,7 @@ def signup():
 
         return redirect(url_for('auth.login'))
 
-    return render_template('auth/signup.html',registration_form = form)
+    return render_template('auth/register.html',registration_form = form)
 
 @auth.route('/logout')
 @login_required

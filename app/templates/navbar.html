@@ -17,13 +17,13 @@
           <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
         </li>
         <li >
-          <a class="nav-link" href="/blogposts">Blogs</a>
+          <a class="nav-link" href="/blogposts" style="padding-right: 2em;">Blogs</a>
         </li>
-  
       </ul>
   
       <ul class="nav navbar-nav navbar-right">
-        
+          <a class="nav-link" href="{{url_for('auth.login')}}">Sign up</a>
+          <a class="nav-link" href="{{url_for('auth.register')}}">Sign in</a>
       </ul>
     </div>
   </nav>
