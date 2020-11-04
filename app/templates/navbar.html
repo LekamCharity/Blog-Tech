@@ -10,15 +10,18 @@
 </style>
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg " style="background-color: black;">
-  <h1 style="text-align:center" style="font-size:30px"> <strong>BLOG-TECH APPLICATION</strong></h1>
+  <h1 style="text-align:center"> <strong>BLOG-TECH APPLICATION</strong></h1>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-          <a class="nav-link" href="/" style="padding-right: 2em;" >Home <span class="sr-only">(current)</span></a>
-          <a class="nav-link" href="/blogposts" style="padding-right: 2em;">Blogs</a>
+          <a class="nav-link" href="/" style="padding-right: 2em; font-size: 20px;" >Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/blogposts" style="padding-right: 2em; font-size: 20px;">Blogs</a>
+          <a class="nav-item nav-link" style="padding-right: 2em; font-size: 20px;" href="{{ url_for('main.new_blog') }}">New Post</a>
       </ul>
-  
       <ul class="nav navbar-nav navbar-right">
-          <a class="nav-link" href="{{url_for('auth.register')}}">Sign in</a>
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="{{ url_for('auth.login') }}">Login</a>
+          <a class="nav-item nav-link" href="{{ url_for('auth.register') }}">Register</a>
+        </div> 
       </ul>
     </div>
   </nav>

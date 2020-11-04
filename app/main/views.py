@@ -88,7 +88,6 @@ def new_blog():
         blogpost = Blogs(title=title,topic= topic,content= content,user_id=current_user.id)
 
         db.session.add(blogpost)
-        db.session.commit()
 
         title='New Blog'
 
