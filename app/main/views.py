@@ -211,9 +211,8 @@ def subscriber():
         subscriber= Subscriber(email=subscriber_form.email.data,name = subscriber_form.name.data)
 
         db.session.add(subscriber)
-        db.session.commit()
 
-        mail_message("Welcome to Blog-Tech","email/welcome_subscriber",subscriber.email,subscriber=subscriber)
+        mail_message("Welcome to Blog-Tech","email/subscriber",subscriber.email,subscriber=subscriber)
 
         title= "Blog-Tech"
         return render_template('index.html',title=title, blogs=blogs)
