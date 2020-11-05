@@ -72,7 +72,6 @@ def admin_dashboard():
 
     return render_template('admin_dashboard.html', title="Dashboard",blogposts=blogposts)
 
-
 @main.route('/blog/', methods = ['GET','POST'])
 @login_required
 def new_blog():
