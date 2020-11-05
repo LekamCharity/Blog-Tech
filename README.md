@@ -43,11 +43,11 @@ Run the following commands in the same terminal:
 Quickly create a database where your data is going to be persistent .
 ```
 psql
-you=#  CREATE DATABASE blogtechnology;
+you=#  CREATE DATABASE blogwithlekam;
 ```
 
 ```bash
-SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://username:password@localhost/blogtechnology'
+SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://username:password@localhost/blogwithlekam'
 SECRET_KEY='Your secret key'
 ```
 
