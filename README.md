@@ -18,7 +18,7 @@ As a user I would like to:
 * Alerted when a new post is made by joining a subscription.
 
 ## Live link to the website 
-  ``` ```
+  ```  https://blogwithlekam.herokuapp.com/```
 
 ## Set-up and Installation
 
